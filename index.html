@@ -5,14 +5,10 @@
 	<base target="_top">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
 	<title>Rutas De Vuelo</title>
-	
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
 	<style>
 		html, body {
 			height: 100%;
@@ -26,60 +22,66 @@
 			max-height: 100%;
 		}
 	</style>
-
-	
 </head>
 <body>
-
-
-
 <div id="map" style="width: 100%; height: 100%;"></div>
 <script>
-
     const map = L.map('map').setView([4.576425, -74.11377], 10)
 	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
-    
-//putnos de la ruta
-	/*const marker = L.marker([51.5, -0.09]).addTo(map)
-		.bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
-    
-    const marker2 = L.marker([51.4, -0.09]).addTo(map)
-		.bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
 
-	const circle = L.circle([51.508, -0.11], {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5,
-		radius: 500
-	}).addTo(map).bindPopup('I am a circle.');
+//puntos de la ruta
+var markers = [
+			{
+                coordinates: [4.80732786748264, -74.0388177428279],
+                popupContent: "Bima"
+            },
+            {
+                coordinates: [4.97467390003998, -74.2890710995271],
+                popupContent: "San Francisco"
+            },
+            {
+                coordinates: [4.78309980027479, -74.7634551998885],
+                popupContent: "Ambalema"
+            },
+            {
+                coordinates: [4.51772660001462, -74.7897509005394],
+                popupContent: "Guataquí"
+            },
+            {
+                coordinates: [4.29683176855713, -74.8016937980121],
+                popupContent: "Girardot"
+            },
+            {
+                coordinates: [4.80691506599664, -74.0659325422179],
+                popupContent: "Guaymaral"
+            },
+            {
+                coordinates: [4.92900100040596, -74.172465000633],
+                popupContent: "Subachoque"
+            },
+            {
+                coordinates: [4.85990817655055, -74.0290386000425],
+                popupContent: "Puente"
+            }
 
-	const polygon = L.polygon([
-		[51.509, -0.08],
-		[51.503, -0.06],
-		[51.51, -0.047]
-	]).addTo(map).bindPopup('I am a polygon.');
+        ];
+var markerCoordinates = [];
+markers.forEach(function(markerInfo) {
+    var marker = L.marker(markerInfo.coordinates).addTo(map);
+    marker.bindPopup(markerInfo.popupContent);
 
 
-	const popup = L.popup()
-		.setLatLng([51.513, -0.09])
-		.setContent('I am a standalone popup.')
-		.openOn(map);
-*/
-	function onMapClick(puntoMapa) {
-		popup
-			.setLatLng(puntoMapa.latlng)
-			.setContent(`You clicked the map at ${punto.Mapa.latlng.toString()}`)
-			.openOn(map);
-	}
+    // Agregar las coordenadas del marcador al array
+    markerCoordinates.push(markerInfo.coordinates);
+});	
 
-	map.on('click', onMapClick);
+
+// Crear una polilínea que une los marcadores
+var polyline = L.polyline(markerCoordinates, {color: 'blue'}).addTo(map);
 
 </script>
-
-
-
 </body>
 </html>
